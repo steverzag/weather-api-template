@@ -5,7 +5,7 @@ GET {{WeatherAPI.API_HostAddress}}/current/by-city?cityName=miami
 Accept: application/json
 
 ###Current Weather By Location
-GET {{WeatherAPI.API_HostAddress}}/current?lon=-99.9167&lat=21
+GET {{WeatherAPI.API_HostAddress}}/current?lon=-80.1937&lat=25.7743
 Accept: application/json
 
 ###Forecast By City
@@ -13,5 +13,5 @@ GET {{WeatherAPI.API_HostAddress}}/forecast/by-city?cityName=miami
 Accept: application/json
 
 ###Forecast By Location
-GET {{WeatherAPI.API_HostAddress}}/forecast?lon=-99.9167&lat=21
+GET {{WeatherAPI.API_HostAddress}}/forecast?lon=-80.1937&lat=25.7743
 Accept: application/json

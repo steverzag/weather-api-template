@@ -48,7 +48,7 @@ To run the API locally:
 
 Or to run the application using [Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview)
 
-   ```
+   ```sh
    dotnet run --project ./WeatherAPI.AppHost/WeatherAPI.AppHost.csproj
    ```
 
