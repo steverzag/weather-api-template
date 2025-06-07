@@ -33,16 +33,21 @@ A simple and modular .NET Web API project that serves as a middleware between en
     ```
 
 3. Restore and build the project:
+
     ```sh
     dotnet restore
     dotnet build
     ```
+
 ## Running the Application
 To run the API locally:
+
     ```sh
     dotnet run --project ./WeatherAPI.API/WeatherAPI.API.csproj
     ```
+
 Or to run the application using [Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview)
+
    ```
    dotnet run --project ./WeatherAPI.AppHost/WeatherAPI.AppHost.csproj
    ```
@@ -56,7 +61,7 @@ Example endpoints:
 
  - GET /forecast/by-city?cityName=London — Get the weather forecast for a city
 
- > Refer to the included [WeatherAPI.API.http](WeatherAPI.API/WeatherAPI.API.httpWeatherAPI.API.http) file or Swagger UI for more details.
+ > Refer to the included [WeatherAPI.API.http](WeatherAPI.API/WeatherAPI.API.http) file or Swagger UI for more details.
 
 
 
