@@ -61,7 +61,7 @@ Example endpoints:
 
  - GET /forecast/by-city?cityName=London — Get the weather forecast for a city
 
- > Refer to the included [WeatherAPI.API.http](WeatherAPI.API/WeatherAPI.API.http) file or Swagger UI for more details.
+ > Refer to the included [WeatherAPI.API.http](WeatherAPI.API/WeatherAPI.API.http) file for more details.
 
 
 
