@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
+using System;
 using System.Net;
 using WeatherAPI.API.DTOs;
 using WeatherAPI.API.External;
@@ -8,13 +9,12 @@ namespace WeatherAPI.API.Services
 {
 	public class WeatherService
 	{
-		private readonly IHttpClientFactory _httpClientFactory;
+		private readonly HttpClient _httpClient;
 		private readonly string _openWeatherApiKey;
-		private const string _openWeatherApiVersion = "2.5";
 
-		public WeatherService(IHttpClientFactory httpClientFactory, IConfiguration configuration)
+		public WeatherService(HttpClient httpClient, IConfiguration configuration)
 		{
-			_httpClientFactory = httpClientFactory;
+			_httpClient = httpClient;
 			_openWeatherApiKey = configuration["OpenWeather:ApiKey"] ?? throw new NullReferenceException(nameof(_openWeatherApiKey));
 		}
 
@@ -24,7 +24,7 @@ namespace WeatherAPI.API.Services
 			{
 				return null;
 			}
-			var url = $"https://api.openweathermap.org/data/{_openWeatherApiVersion}/weather";
+			var path = $"weather";
 			var queryParams = new Dictionary<string, string?>();
 
 			var qParam = request.City;
@@ -50,12 +50,7 @@ namespace WeatherAPI.API.Services
 			queryParams.Add("units", degreeUnits);
 			queryParams.Add("appid", _openWeatherApiKey);
 
-			QueryHelpers.AddQueryString(url, queryParams);
-
-			var uri = new Uri(QueryHelpers.AddQueryString(url, queryParams));
-
-			var client = _httpClientFactory.CreateClient();
-			var response = await client.GetAsync(uri);
+			var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString(path, queryParams));
 			if (response.StatusCode is HttpStatusCode.NotFound)
 			{
 				return null;
@@ -67,7 +62,7 @@ namespace WeatherAPI.API.Services
 
 		public async Task<CurrentWeatherResponse?> GetCurrentWeatherByCoordinatesAsync(WeatherByCoordinatesRequestDTO request)
 		{
-			var url = $"https://api.openweathermap.org/data/{_openWeatherApiVersion}/weather?lat={request.Latitude}&lon={request.Longitude}";
+			var path = $"weather?lat={request.Latitude}&lon={request.Longitude}";
 			var queryParams = new Dictionary<string, string?>();
 
 			var degreeUnits = request.Units switch
@@ -80,12 +75,7 @@ namespace WeatherAPI.API.Services
 			queryParams.Add("units", degreeUnits);
 			queryParams.Add("appid", _openWeatherApiKey);
 
-			QueryHelpers.AddQueryString(url, queryParams);
-
-			var uri = new Uri(QueryHelpers.AddQueryString(url, queryParams));
-
-			var client = _httpClientFactory.CreateClient();
-			var response = await client.GetAsync(uri);
+			var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString(path, queryParams));
 			if (response.StatusCode is HttpStatusCode.NotFound)
 			{
 				return null;
@@ -101,7 +91,7 @@ namespace WeatherAPI.API.Services
 			{
 				return null;
 			}
-			var url = $"https://api.openweathermap.org/data/{_openWeatherApiVersion}/forecast";
+			var path = $"forecast";
 			var queryParams = new Dictionary<string, string?>();
 
 			var qParam = request.City;
@@ -127,12 +117,7 @@ namespace WeatherAPI.API.Services
 			queryParams.Add("units", degreeUnits);
 			queryParams.Add("appid", _openWeatherApiKey);
 
-			QueryHelpers.AddQueryString(url, queryParams);
-
-			var uri = new Uri(QueryHelpers.AddQueryString(url, queryParams));
-
-			var client = _httpClientFactory.CreateClient();
-			var response = await client.GetAsync(uri);
+			var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString(path, queryParams));
 			if (response.StatusCode is HttpStatusCode.NotFound)
 			{
 				return null;
@@ -144,7 +129,7 @@ namespace WeatherAPI.API.Services
 
 		public async Task<ForecastResponse?> GetForecastByCoordinatesAsync(WeatherByCoordinatesRequestDTO request)
 		{
-			var url = $"https://api.openweathermap.org/data/{_openWeatherApiVersion}/forecast?lat={request.Latitude}&lon={request.Longitude}";
+			var path = $"forecast?lat={request.Latitude}&lon={request.Longitude}";
 			var queryParams = new Dictionary<string, string?>();
 
 			var degreeUnits = request.Units switch
@@ -157,12 +142,7 @@ namespace WeatherAPI.API.Services
 			queryParams.Add("units", degreeUnits);
 			queryParams.Add("appid", _openWeatherApiKey);
 
-			QueryHelpers.AddQueryString(url, queryParams);
-
-			var uri = new Uri(QueryHelpers.AddQueryString(url, queryParams));
-
-			var client = _httpClientFactory.CreateClient();
-			var response = await client.GetAsync(uri);
+			var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString(path, queryParams));
 			if (response.StatusCode is HttpStatusCode.NotFound)
 			{
 				return null;
